@@ -1,0 +1,38 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    margin-top: 70px;
+    justify-content: flex-start;
+  }
+  
+  .table-wrapper {
+    width: 80%;
+    text-align: center;
+  }
+  
+  .counter-container {
+    background-color: white;
+    border-radius: 0 !important;
+    padding: 10px;
+    text-align: center;
+    width: 20%;
+  }
+  
+  .count {
+    font-family:'Roboto Mono', monospace !important;
+    font-weight: 500 !important;
+    font-size: 60px !important;
+  }
+  
+  .bordered-span {
+    color: #63a87c;
+    border-color: #63a87c;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline-block;
+  }

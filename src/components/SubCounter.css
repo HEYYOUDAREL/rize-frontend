@@ -1,0 +1,35 @@
+.main-sub {
+    display: flex;
+    flex-direction: row;
+    margin-top: 70px;
+    margin-bottom: 50px;
+    justify-content: flex-start;
+  }
+  
+  .table-wrapper {
+    text-align: center;
+  }
+  
+  .count {
+    font-family:'Roboto Mono', monospace !important;
+    font-weight: 500 !important;
+    font-size: 60px !important;
+  }
+  
+  .countname {
+    width: 20%;
+  }
+  
+  .bordered-span {
+    color: #63a87c;
+    border-color: #63a87c;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline-block;
+  }
+  

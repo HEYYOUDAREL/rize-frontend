@@ -1,0 +1,30 @@
+.App {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* This will create space between the left and right divs */
+  align-items: flex-start; /* Align items at the top of the container */
+}
+
+.left {
+  flex: 1;
+  margin-top: 70px;
+  margin-left: 50px;
+}
+
+.right {
+  flex: 2; /* Occupy 2/3 of the available space (adjust as needed) */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items at the top of the right div */
+}
+
+.btn {
+  margin-top: 1rem;
+  border: none;
+  background-color: #1d4ed8;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 5px 5px #ccc;
+}
