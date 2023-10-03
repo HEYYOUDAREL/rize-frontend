@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import "./SubCounter.css";
+import { Link } from 'react-router-dom';
+import "./styles/SubCounter.css";
 
 export const SubCounter = (formState) => {
     
@@ -50,9 +51,9 @@ export const SubCounter = (formState) => {
             <table className='table-wrapper'>
             <tbody>
                 <tr>
-                    <td className='count'>{clientCount}</td>
-                    <td className='count'>{agencyCount}</td>
-                    <td className='count'>{locationCount}</td>
+                    <td><Link to="/dashboard/client" className='count'>{clientCount}</Link></td>
+                    <td><Link to="/dashboard/agency" className='count'>{agencyCount}</Link></td>
+                    <td><Link to="/dashboard/location" className='count'>{locationCount}</Link></td>
                     <td className='count'>{trialCount}</td>
                 </tr>
                 <tr>

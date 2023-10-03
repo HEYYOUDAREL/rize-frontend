@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import "./Modal.css";
+import "./styles/Modal.css";
 import { ClientDropdown } from "./ModalComponent/clientDropdown";
 import { AgencyDropdown } from "./ModalComponent/agencyDropdown";
 import { LocationDropdown } from "./ModalComponent/locationDropdown";

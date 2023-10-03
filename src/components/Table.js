@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Table.css";
+import "./styles/Table.css";
 import { BsPersonAdd } from "react-icons/bs";
 import { Modal } from "./Modal";
 import { ClientDropdown } from "./TableComponent/clientDropdown";
@@ -9,7 +9,7 @@ import { AgencyCategory } from "./TableComponent/agencyCategory";
 import { AgencyStatus } from "./TableComponent/agencyStatus";
 import { LocationCategory } from "./TableComponent/locationCategory";
 import { LocationStatus } from "./TableComponent/locationStatus";
-import { DeleteClient } from "./ModalComponent/deleteClient";
+import { DeleteClient } from "./TableComponent/deleteClient";
 
 export const Table = ({ defaultValue }) => {
     

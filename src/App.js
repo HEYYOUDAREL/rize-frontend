@@ -1,29 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
-import { AppNavbar } from "./components/AppNavbar";
-import { Counter } from "./components/Counter";
-import { SubCounter } from "./components/SubCounter";
-import { Table } from "./components/Table";
+import { Container } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard'; // Import the Dashboard component
 
 function App() {
-
   return (
-    <div>
-      <AppNavbar />
-      <div className="App">
-        <div className="left">
-          <Table />
-        </div>
-        <div className="right">
-          <div className="top">
-            <SubCounter />
-          </div>
-          <div className="bottom">
-            <Counter />
-          </div>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Container fluid>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Routes> {/* Use Routes component to define nested routes */}
+          <Route path="/dashboard/client" element={<Dashboard dataType="client"/>} />
+          <Route path="/dashboard/agency" element={<Dashboard dataType="agency"/>} />
+          <Route path="/dashboard/location" element={<Dashboard dataType="location"/>} />
+        </Routes>
+      </Container>
+    </Router>
   );
 }
 

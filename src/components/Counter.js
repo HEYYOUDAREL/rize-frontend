@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./Counter.css";
+import "./styles/Counter.css";
 
 export const Counter = (formState) => {
     const [clientCount, setClientCount] = useState(0);

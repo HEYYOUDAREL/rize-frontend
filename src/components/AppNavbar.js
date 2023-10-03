@@ -1,5 +1,5 @@
 import React from 'react';
-import "./AppNavbar.css";
+import "./styles/AppNavbar.css";
 import { Navbar, Container } from 'react-bootstrap';
 
 export const AppNavbar = () => {
@@ -8,7 +8,7 @@ export const AppNavbar = () => {
         <>
             <Navbar>
                 <Container className='rize-logo'>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/">
                     <img
                     src={process.env.PUBLIC_URL + '/images/rize.jpg'}
                     alt="Rize"
