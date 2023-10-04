@@ -64,6 +64,9 @@ export const AddAgency = ({ formState, defaultValue, setFormState, closeModal })
 					title: "Agency successfully added",
 					icon: "success",
 					text: `${agencyName} is now added`,
+				}).then(() => {
+					// Reload the page after the SweetAlert success message
+					window.location.reload();
 				});
 			}
 		} catch (error) {
@@ -74,16 +77,6 @@ export const AddAgency = ({ formState, defaultValue, setFormState, closeModal })
 				text: `Something went wrong. Please try again later!`,
 			});
 		}
-		
-		// Reset selectedClient and selectedAgency to their default values
-		setFormState((prevState) => {
-			const newState = {
-			...prevState,
-			selectedClient: defaultValue.selectedClient !== undefined ? defaultValue.selectedClient : null,
-			selectedAgency: defaultValue.selectedAgency !== undefined ? defaultValue.selectedAgency : null,
-			};
-			return newState;
-		});  
 		
 		// Close the modal
 		closeModal();

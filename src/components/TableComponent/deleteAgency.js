@@ -1,37 +1,38 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { BsFillTrashFill } from "react-icons/bs";
-import { clientID } from "../utils/clientID";
+import { agencyID } from "../utils/agencyID";
 
-export const DeleteClient = ({ formState, defaultValue, setFormState }) => {
+export const DeleteAgency = ({ formState, defaultValue, setFormState }) => {
+    
     const [isDeleting, setIsDeleting] = useState(false);
 
-    const handleClientDeletion = async () => {
+    const handleAgencyDeletion = async () => {
         try {
             setIsDeleting(true);
 
-            const clientName = formState.selectedClient;
-            if (!clientName) {
+            const agencyName = formState.selectedAgency;
+            if (!agencyName) {
                 Swal.fire({
                     title: "Error!",
                     icon: "error",
-                    text: "Client is required.",
+                    text: "Agency is required.",
                 });
                 return;
             }
 
-            const getClientID = await clientID(clientName);
+            const getAgencyID = await agencyID(agencyName);
 
-            if (!getClientID) {
+            if (!getAgencyID) {
                 Swal.fire({
                     title: "Error!",
                     icon: "error",
-                    text: `Client '${clientName}' not found.`,
+                    text: `Agency '${agencyName}' not found.`,
                 });
                 return;
             }
 
-            const clientResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/client/delete/${getClientID}`, {
+            const agencyResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/agency/delete/${getAgencyID}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -39,25 +40,25 @@ export const DeleteClient = ({ formState, defaultValue, setFormState }) => {
                 body: JSON.stringify({}),
             });
 
-            if (clientResponse.ok) {
+            if (agencyResponse.ok) {
                 Swal.fire({
-                    title: "Client successfully deleted",
+                    title: "Agency successfully deleted",
                     icon: "success",
-                    text: `${clientName} and all its associated agencies/locations are deleted successfully!`,
+                    text: `${agencyName} and all its associated locations are deleted successfully!`,
                 })
                 .then((result) => {
                     // Reload the Page
                     location.reload();
                 });
             } else {
-                throw new Error(`Network response was not ok (status ${clientResponse.status})`);
+                throw new Error(`Network response was not ok (status ${agencyResponse.status})`);
             }
         } catch (error) {
             console.error("Error:", error);
             Swal.fire({
                 title: "Error!",
                 icon: "error",
-                text: `Failed to delete client. Please try again later!`,
+                text: `Failed to delete agency. Please try again later!`,
             });
         } finally {
             setIsDeleting(false);
@@ -65,7 +66,7 @@ export const DeleteClient = ({ formState, defaultValue, setFormState }) => {
     };
 
     return (
-        <div className={`btn-table ${isDeleting ? "disabled" : ""}`} onClick={!isDeleting ? handleClientDeletion : null}>
+        <div className={`btn-table ${isDeleting ? "disabled" : ""}`} onClick={!isDeleting ? handleAgencyDeletion : null}>
             <BsFillTrashFill size={30} color={isDeleting ? "gray" : "red"} />
         </div>
     );

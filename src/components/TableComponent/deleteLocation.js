@@ -1,37 +1,38 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { BsFillTrashFill } from "react-icons/bs";
-import { clientID } from "../utils/clientID";
+import { locationID } from "../utils/locationID";
 
-export const DeleteClient = ({ formState, defaultValue, setFormState }) => {
+export const DeleteLocation = ({ formState, defaultValue, setFormState }) => {
+    
     const [isDeleting, setIsDeleting] = useState(false);
 
-    const handleClientDeletion = async () => {
+    const handleLocationDeletion = async () => {
         try {
             setIsDeleting(true);
 
-            const clientName = formState.selectedClient;
-            if (!clientName) {
+            const locationName = formState.selectedLocation;
+            if (!locationName) {
                 Swal.fire({
                     title: "Error!",
                     icon: "error",
-                    text: "Client is required.",
+                    text: "Location is required.",
                 });
                 return;
             }
 
-            const getClientID = await clientID(clientName);
+            const getLocationID = await locationID(locationName);
 
-            if (!getClientID) {
+            if (!getLocationID) {
                 Swal.fire({
                     title: "Error!",
                     icon: "error",
-                    text: `Client '${clientName}' not found.`,
+                    text: `Location '${locationName}' not found.`,
                 });
                 return;
             }
 
-            const clientResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/client/delete/${getClientID}`, {
+            const locationResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/location/delete/${getLocationID}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -39,25 +40,25 @@ export const DeleteClient = ({ formState, defaultValue, setFormState }) => {
                 body: JSON.stringify({}),
             });
 
-            if (clientResponse.ok) {
+            if (locationResponse.ok) {
                 Swal.fire({
-                    title: "Client successfully deleted",
+                    title: "Location successfully deleted",
                     icon: "success",
-                    text: `${clientName} and all its associated agencies/locations are deleted successfully!`,
+                    text: `${locationName} is deleted successfully!`,
                 })
                 .then((result) => {
                     // Reload the Page
                     location.reload();
                 });
             } else {
-                throw new Error(`Network response was not ok (status ${clientResponse.status})`);
+                throw new Error(`Network response was not ok (status ${locationResponse.status})`);
             }
         } catch (error) {
             console.error("Error:", error);
             Swal.fire({
                 title: "Error!",
                 icon: "error",
-                text: `Failed to delete client. Please try again later!`,
+                text: `Failed to delete location. Please try again later!`,
             });
         } finally {
             setIsDeleting(false);
@@ -65,7 +66,7 @@ export const DeleteClient = ({ formState, defaultValue, setFormState }) => {
     };
 
     return (
-        <div className={`btn-table ${isDeleting ? "disabled" : ""}`} onClick={!isDeleting ? handleClientDeletion : null}>
+        <div className={`btn-table ${isDeleting ? "disabled" : ""}`} onClick={!isDeleting ? handleLocationDeletion : null}>
             <BsFillTrashFill size={30} color={isDeleting ? "gray" : "red"} />
         </div>
     );

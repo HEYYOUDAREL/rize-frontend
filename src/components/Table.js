@@ -10,57 +10,41 @@ import { AgencyStatus } from "./TableComponent/agencyStatus";
 import { LocationCategory } from "./TableComponent/locationCategory";
 import { LocationStatus } from "./TableComponent/locationStatus";
 import { DeleteClient } from "./TableComponent/deleteClient";
+import { DeleteAgency } from "./TableComponent/deleteAgency";
+import { DeleteLocation } from "./TableComponent/deleteLocation";
 
 export const Table = ({ defaultValue }) => {
     
     const [formState, setFormState] = useState(
         defaultValue || {
-            selectedClient: null,
-            selectedAgency: null,
+            selectedClient: "",
+            selectedAgency: "",
             selectedLocation: "",
             category: "",
             status: "",
         }
-        );
-        
-        const [modalOpen, setModalOpen] = useState(false);
-        const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-        // Add a state variable to control the key prop
-        const [dropdownKey, setDropdownKey] = useState(0);
-        
-        // Function to reload dropdowns
-        const reloadDropdowns = () => {
-            console.log("Reloading dropdowns...");
-            setDropdownKey((prevKey) => prevKey + 1);
-        };
-        
-        const handleClientSelection = (selectedClientId) => {
-            setFormState({ ...formState, selectedClient: selectedClientId });
-        };
-        
-        const handleAgencySelection = (selectedAgencyId) => {
-            setFormState({
-                ...formState,
-                selectedAgency: selectedAgencyId,
-            });
-        };
-        
-        const handleLocationSelection = (selectedLocationName) => {
-            setFormState({
-                ...formState,
-                selectedLocation: selectedLocationName,
-            });
-        };
-        
-        const clearFormFields = () => {
-            setFormState({
-                selectedClient: "",
-                selectedAgency: "",
-                selectedLocation: "",
-                category: "",
-                status: "",
-            });
-        };
+    );
+    
+    const [modalOpen, setModalOpen] = useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+    
+    const handleClientSelection = (selectedClientId) => {
+        setFormState({ ...formState, selectedClient: selectedClientId });
+    };
+    
+    const handleAgencySelection = (selectedAgencyId) => {
+        setFormState({
+            ...formState,
+            selectedAgency: selectedAgencyId,
+        });
+    };
+    
+    const handleLocationSelection = (selectedLocationName) => {
+        setFormState({
+            ...formState,
+            selectedLocation: selectedLocationName,
+        });
+    };
         
     const statusText = (status) => status.charAt(0).toUpperCase() + status.slice(1);
     
@@ -152,17 +136,31 @@ export const Table = ({ defaultValue }) => {
                                         closeModal={() => setModalOpen(false)}
                                     />
                                 )}
-                                <button onClick={() => setDeleteConfirmation(true)} className="btn-table" title="Delete">
-                                    <DeleteClient
-                                        formState={formState}
-                                        defaultValue={defaultValue}
-                                        setFormState={setFormState}
-                                        reloadDropdowns={reloadDropdowns}
-                                        onConfirm={() => {
-                                            clearFormFields();
-                                        }}
+                            <button
+                                onClick={() => setDeleteConfirmation(true)}
+                                className="btn-table"
+                                title="Delete"
+                                disabled={!formState.selectedClient}>
+                                <DeleteClient
+                                    formState={formState}
+                                    defaultValue={defaultValue}
+                                    setFormState={setFormState}
+                                />
+                                {formState.selectedAgency && !formState.selectedLocation && (
+                                    <DeleteAgency
+                                    formState={formState}
+                                    defaultValue={defaultValue}
+                                    setFormState={setFormState}
                                     />
-                                </button>
+                                )}
+                                {formState.selectedLocation && (
+                                    <DeleteLocation
+                                    formState={formState}
+                                    defaultValue={defaultValue}
+                                    setFormState={setFormState}
+                                    />
+                                )}
+                            </button>
                             </div>
                         </td>
                     </tr>
@@ -171,4 +169,3 @@ export const Table = ({ defaultValue }) => {
         </div>
     );
 };
-                            

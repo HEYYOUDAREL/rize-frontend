@@ -62,6 +62,9 @@ export const AddLocation = ({ formState, defaultValue, setFormState, closeModal 
             title: "Location successfully added",
             icon: "success",
             text: `${locationName} is now added`,
+          }).then(() => {
+            // Reload the page after the SweetAlert success message
+            window.location.reload();
           });
         }
       } catch (error) {
@@ -89,10 +92,9 @@ export const AddLocation = ({ formState, defaultValue, setFormState, closeModal 
       closeModal();
     };
   
-    return (
-      <button type="button" className="btn" onClick={handleAddLocation}>
-        Add Location
-      </button>
-    );
-  };
-  
+  return (
+    <button type="button" className="btn" onClick={handleAddLocation}>
+      Add Location
+    </button>
+  );
+};
