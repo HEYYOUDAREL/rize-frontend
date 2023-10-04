@@ -48,7 +48,7 @@ export const DeleteAgency = ({ formState, defaultValue, setFormState }) => {
                 })
                 .then((result) => {
                     // Reload the Page
-                    location.reload();
+                    window.location.reload();
                 });
             } else {
                 throw new Error(`Network response was not ok (status ${agencyResponse.status})`);
