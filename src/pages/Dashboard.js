@@ -10,8 +10,8 @@ const Dashboard = ({ dataType }) => {
     async function fetchData() {
       try {
         let apiUrl;
-
-        // Determine the API URL and display fields based on the dataType prop
+        let searchKey = 'Trial'; // Status to search for
+  
         switch (dataType) {
           case 'client':
             apiUrl = `${process.env.REACT_APP_API_URL}/accounts/client/retrieve/all`;
@@ -25,11 +25,33 @@ const Dashboard = ({ dataType }) => {
             apiUrl = `${process.env.REACT_APP_API_URL}/accounts/location/retrieve/all`;
             setDisplayFields(['client', 'agency', 'location', 'category', 'status']);
             break;
-          default:
-            apiUrl = ''; // Handle invalid dataType here
-            break;
+          case 'trial': // New case for 'trial' status
+            // Construct API endpoints for all three data types
+            const clientApi = `${process.env.REACT_APP_API_URL}/accounts/client/retrieve/all`;
+            const agencyApi = `${process.env.REACT_APP_API_URL}/accounts/agency/retrieve/all`;
+            const locationApi = `${process.env.REACT_APP_API_URL}/accounts/location/retrieve/all`;
+  
+            // Make parallel requests to all APIs and filter data with 'trial' status
+            const [clientData, agencyData, locationData] = await Promise.all([
+              fetch(clientApi).then(response => response.json()),
+              fetch(agencyApi).then(response => response.json()),
+              fetch(locationApi).then(response => response.json())
+            ]);
+  
+            // Filter data with 'trial' status from all APIs
+            const filteredData = [
+              ...clientData.filter(item => item.status === searchKey),
+              ...agencyData.filter(item => item.status === searchKey),
+              ...locationData.filter(item => item.status === searchKey)
+            ];
+  
+            // Set display fields and filtered data
+            setDisplayFields(['client', 'agency', 'location', 'category', 'status']);
+            setData(filteredData);
+            return; // Exit the function after setting the data
         }
-
+  
+        // Fetch data for other cases (client, agency, location)
         if (apiUrl) {
           const response = await fetch(apiUrl);
           const responseData = await response.json();
@@ -40,9 +62,10 @@ const Dashboard = ({ dataType }) => {
         // Handle errors here, display a user-friendly message or log the error for debugging
       }
     }
-
+  
     fetchData();
   }, [dataType]);
+  
 
   return (
     <div>

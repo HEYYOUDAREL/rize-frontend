@@ -54,7 +54,7 @@ export const SubCounter = (formState) => {
                     <td><Link to="/dashboard/client" className='count'>{clientCount}</Link></td>
                     <td><Link to="/dashboard/agency" className='count'>{agencyCount}</Link></td>
                     <td><Link to="/dashboard/location" className='count'>{locationCount}</Link></td>
-                    <td className='count'>{trialCount}</td>
+                    <td><Link to="/dashboard/trial" className='count'>{trialCount}</Link></td>
                 </tr>
                 <tr>
                     <td className='countname'>
