@@ -32,3 +32,8 @@
     font-weight: normal !important;
     text-transform: capitalize;
 }
+
+.subdashboard-counter {
+    display: flex;
+    justify-content: center;
+}
