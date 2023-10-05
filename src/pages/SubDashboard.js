@@ -86,10 +86,19 @@ const Dashboard = ({ dataType }) => {
                   })
                 ];
 
+                console.log("Filtered Data:", filteredData);
+
                 // Count clients, agencies, and locations
                 const clientCount = new Set(filteredData.map(item => item.client)).size;
                 const agencyCount = new Set(filteredData.map(item => item.agency)).size;
-                const locationCount = new Set(filteredData.map(item => item.location)).size;
+                // Count locations based on the 'locations' field
+                const locationCount = filteredData.reduce((count, item) => {
+                    return count + item.locations.length;
+                }, 0);
+
+                console.log("Location Count Before Setting:", locationCount);
+
+                console.log("Location Count Before Setting:", locationCount);
 
                 // Sort the filtered data
                 const sortedData = sortData(filteredData);
