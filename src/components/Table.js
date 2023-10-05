@@ -136,31 +136,41 @@ export const Table = ({ defaultValue }) => {
                                         closeModal={() => setModalOpen(false)}
                                     />
                                 )}
-                            <button
-                                onClick={() => setDeleteConfirmation(true)}
-                                className="btn-table"
-                                title="Delete"
-                                disabled={!formState.selectedClient}>
-                                <DeleteClient
-                                    formState={formState}
-                                    defaultValue={defaultValue}
-                                    setFormState={setFormState}
-                                />
-                                {formState.selectedAgency && !formState.selectedLocation && (
-                                    <DeleteAgency
-                                    formState={formState}
-                                    defaultValue={defaultValue}
-                                    setFormState={setFormState}
-                                    />
-                                )}
-                                {formState.selectedLocation && (
-                                    <DeleteLocation
-                                    formState={formState}
-                                    defaultValue={defaultValue}
-                                    setFormState={setFormState}
-                                    />
-                                )}
-                            </button>
+                                <button
+                                    onClick={() => setDeleteConfirmation(true)}
+                                    className="btn-table"
+                                    title="Delete"
+                                >
+                                    {formState.selectedClient && !formState.selectedAgency && !formState.selectedLocation ? (
+                                        // Condition 2: formState.selectedClient is truthy and formState.selectedAgency is falsy
+                                        <DeleteClient
+                                            formState={formState}
+                                            defaultValue={defaultValue}
+                                            setFormState={setFormState}
+                                        />
+                                    ) : formState.selectedAgency && !formState.selectedLocation ? (
+                                        // Condition 3: formState.selectedAgency is truthy and formState.selectedLocation is falsy
+                                        <DeleteAgency
+                                            formState={formState}
+                                            defaultValue={defaultValue}
+                                            setFormState={setFormState}
+                                        />
+                                    ) : formState.selectedLocation ? (
+                                        // Condition 4: formState.selectedLocation is truthy
+                                        <DeleteLocation
+                                            formState={formState}
+                                            defaultValue={defaultValue}
+                                            setFormState={setFormState}
+                                        />
+                                    ) : (
+                                        // Condition 1: formState.selectedClient is falsy
+                                        <DeleteClient
+                                            formState={formState}
+                                            defaultValue={defaultValue}
+                                            setFormState={setFormState}
+                                        />
+                                    )}
+                                </button>
                             </div>
                         </td>
                     </tr>
