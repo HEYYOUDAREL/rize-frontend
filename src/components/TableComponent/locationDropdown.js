@@ -42,9 +42,12 @@ export const LocationDropdown = ({ formState, onLocationSelect }) => {
 					const agencyLocations = data.locations.map((locationData) => ({
 						label: locationData.location,
 						value: locationData.location,
-					}));
-					
-					setAllLocations(agencyLocations);
+					}))
+
+					// Sort the location alphabetically by label
+					const sortedLocations = agencyLocations.sort((a, b) => a.label.localeCompare(b.label));
+					setAllLocations(sortedLocations);
+
 				} catch (error) {
 					console.error("Error fetching data:", error);
 					// Handle the error, e.g., show an error message to the user

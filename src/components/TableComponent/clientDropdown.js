@@ -6,17 +6,21 @@ export const ClientDropdown = ({ formState, onClientSelect }) => {
 	const [selectedClient, setSelectedClient] = useState(null);
 	
 	useEffect(() => {
-		
 		async function fetchData() {
-
 			try {
 				const response = await fetch(`${process.env.REACT_APP_API_URL}/accounts/client/retrieve/all`);
-
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
 				const data = await response.json();
-				setAllClients(data);
+				
+				// Sort the clients alphabetically
+				const sortedOptions = data.map((opts) => ({
+					label: opts.client,
+					value: opts.client,
+				})).sort((a, b) => a.label.localeCompare(b.label));
+
+				setAllClients(sortedOptions);
 				
 			} catch (error) {
 				console.error("Error fetching data:", error);
@@ -36,17 +40,12 @@ export const ClientDropdown = ({ formState, onClientSelect }) => {
 		}
 	};
 	
-	const options = allClients.map((opts) => ({
-		label: opts.client,
-		value: opts.client,
-	}));
-	
 	return (
 		<div>
 			<Select
 				value={selectedClient}
 				onChange={handleSelectChange}
-				options={options}
+				options={allClients}
 				isClearable
 				isSearchable
 				placeholder="Select Client"

@@ -12,6 +12,7 @@ function App() {
       <Container fluid>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/client" element={<Dashboard dataType="client"/>} />
           <Route path="/dashboard/agency" element={<Dashboard dataType="agency"/>} />
           <Route path="/dashboard/location" element={<Dashboard dataType="location"/>} />

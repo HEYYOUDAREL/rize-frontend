@@ -32,9 +32,12 @@ export const AgencyDropdown = ({ formState, onAgencySelect }) => {
 				const clientAgencies = data.agencies.map((agencyData) => ({
 					label: agencyData.agency,
 					value: agencyData.agency,
-				}));
+				}))
+
+				// Sort the agencies alphabetically
+				const sortedAgencies = clientAgencies.sort((a, b) => a.label.localeCompare(b.label));
+				setAllAgencies(sortedAgencies);
 				
-				setAllAgencies(clientAgencies);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 				// Handle the error, e.g., show an error message to the user

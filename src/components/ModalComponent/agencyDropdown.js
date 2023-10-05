@@ -34,7 +34,10 @@ export const AgencyDropdown = ({ formState, onAgencySelect, setIsAddingAgency })
 					value: agencyData.agency,
 				}));
 
-				setAllAgencies(clientAgencies);
+				// Sort the agencies alphabetically
+				const sortedAgencies = clientAgencies.sort((a, b) => a.label.localeCompare(b.label));
+				setAllAgencies(sortedAgencies);
+
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
