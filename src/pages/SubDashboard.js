@@ -5,6 +5,24 @@ import "./Dashboard.css"
 const Dashboard = ({ dataType }) => {
     const [data, setData] = useState([]);
     const [displayFields, setDisplayFields] = useState([]);
+
+    const sortData = (data) => {
+        return data.sort((a, b) => {
+          // Sort by client
+          if (a.client > b.client) return 1;
+          if (a.client < b.client) return -1;
+    
+          // Sort by agency within the same client
+          if (a.agency > b.agency) return 1;
+          if (a.agency < b.agency) return -1;
+    
+          // Sort by location within the same agency
+          if (a.location > b.location) return 1;
+          if (a.location < b.location) return -1;
+    
+          return 0;
+    });
+};
     
     useEffect(() => {
         async function fetchData() {
@@ -63,10 +81,13 @@ const Dashboard = ({ dataType }) => {
                         return item.category === searchKey;
                     })
                 ];
+
+                // Sort the filtered data
+                const sortedData = sortData(filteredData);
         
                 // Set display fields and filtered data
                 setDisplayFields(['client', 'agency', 'location', 'category', 'status']);
-                setData(filteredData);
+                setData(sortedData);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 // Handle errors here, display a user-friendly message or log the error for debugging
@@ -79,40 +100,43 @@ const Dashboard = ({ dataType }) => {
     
     return (
         <div>
-            <AppNavbar />
-            <div className='dashboard-container'>
-                {data.length === 0 ? (
-                    <p>No accounts found.</p>
-                ) : (
-                    <table className="dashboard-table">
-                        <thead className="dashboard-thead">
-                            <tr>
-                                {displayFields.map((field) => (
-                                    <th key={field} className="dashboard-th">{field}</th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((item, index) => (
-                                <tr key={index}>
-                                    {displayFields.map((field) => (
-                                        <td key={field} className="dashboard-td">
-                                        {Array.isArray(item[field])
-                                            ? item[field].map((value, idx) => (
-                                                <div key={idx}>{value}</div>
-                                                ))
-                                                : item[field]}
-                                        </td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>
+          <AppNavbar />
+          <div className="dashboard-container">
+            {data.length === 0 ? (
+              <p>No accounts found.</p>
+            ) : (
+              <table className="dashboard-table">
+                <thead className="dashboard-thead">
+                  <tr>
+                    {displayFields.map((field) => (
+                      <th key={field} className="dashboard-th">
+                        {field}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item, index) => (
+                    <tr key={index}>
+                      {displayFields.map((field) => (
+                        <td key={field} className="dashboard-td">
+                          {Array.isArray(item[field]) ? (
+                            item[field].map((value, idx) => (
+                              <div key={idx}>{value}</div>
+                            ))
+                          ) : (
+                            item[field]
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
-    );
-};
-
+      );
+    };
+    
 export default Dashboard;
-                        

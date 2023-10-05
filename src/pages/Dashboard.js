@@ -6,6 +6,25 @@ const Dashboard = ({ dataType }) => {
   const [data, setData] = useState([]);
   const [displayFields, setDisplayFields] = useState([]);
 
+  // Function to sort data by client, agency, and location
+  const sortData = (data) => {
+    return data.sort((a, b) => {
+      // Sort by client
+      if (a.client > b.client) return 1;
+      if (a.client < b.client) return -1;
+
+      // Sort by agency within the same client
+      if (a.agency > b.agency) return 1;
+      if (a.agency < b.agency) return -1;
+
+      // Sort by location within the same agency
+      if (a.location > b.location) return 1;
+      if (a.location < b.location) return -1;
+
+      return 0;
+    });
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -55,7 +74,8 @@ const Dashboard = ({ dataType }) => {
         if (apiUrl) {
           const response = await fetch(apiUrl);
           const responseData = await response.json();
-          setData(responseData);
+          const sortedData = sortData(responseData); // Sort the fetched data
+          setData(sortedData)
         }
       } catch (error) {
         console.error('Error fetching data:', error);
