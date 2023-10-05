@@ -47,7 +47,7 @@ export const Counter = (formState) => {
             const gradeUsAccounts = combinedData.filter(item => item.category === 'Grade.us');
             setGradeUsCount(gradeUsAccounts.length);
             
-            const whitelabelAccounts = combinedData.filter(item => item.category === 'Whitelabel');
+            const whitelabelAccounts = combinedData.filter(item => item.category === 'White Label');
             setWhitelabelCount(whitelabelAccounts.length);
             
         } catch (error) {
@@ -91,7 +91,7 @@ export const Counter = (formState) => {
                         <td><span className='bordered-span'>Reviewtrackers</span></td>
                         <td><span className='bordered-span'>Reviewshake</span></td>
                         <td><span className='bordered-span'>Grade.us</span></td>
-                        <td><span className='bordered-span'>Whitelabel</span></td>
+                        <td><span className='bordered-span'>White Label</span></td>
                     </tr>
                 </tbody>
             </table>
