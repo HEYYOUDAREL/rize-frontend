@@ -31,7 +31,7 @@ export const ClientDropdown = ({ onClientSelect }) => {
 
     const addedClient = (clientName) => {
         // Call the AddClient function with the necessary parameters
-        AddClient(clientName, setAllClients, setSelectedClient);
+        AddClient(clientName, allClients, setAllClients, setSelectedClient);
     };
 
     const handleSelectChange = (selectedOption) => {
