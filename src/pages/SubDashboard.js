@@ -79,7 +79,7 @@ const Dashboard = ({ dataType }) => {
                 // Filter data from all APIs
                 const filteredData = [
                   ...agencyData.filter(item => {
-                      return item.category === searchKey;
+                      return item.category === searchKey;   
                   }),
                   ...locationData.filter(item => {
                       return item.category === searchKey;
@@ -91,7 +91,10 @@ const Dashboard = ({ dataType }) => {
                 const agencyCount = new Set(filteredData.map(item => item.agency)).size;
                 // Count locations based on the 'locations' field
                 const locationCount = filteredData.reduce((count, item) => {
-                    return count + item.locations.length;
+                    if (item.locations && Array.isArray(item.locations)) {
+                        return count + item.locations.length;
+                    }
+                    return count;
                 }, 0);
 
                 // Sort the filtered data
