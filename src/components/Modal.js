@@ -90,7 +90,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
                                 { value: 'Reviewshake', label: 'Reviewshake' },
                                 { value: 'Rize Partner', label: 'Rize Partner' },
                                 { value: 'Grade.us', label: 'Grade.us' },
-                                { value: 'Whitelabel', label: 'Whitelabel' }
+                                { value: 'White Label', label: 'White Label' }
                             ]}
                         />
                     </div>
