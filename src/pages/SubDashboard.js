@@ -101,7 +101,7 @@ const Dashboard = ({ dataType }) => {
                 const sortedData = sortData(filteredData);
 
                 // Set display fields, filtered data, and counts in the state
-                setDisplayFields(['client', 'agency', 'location', 'category', 'status']);
+                setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets']);
                 setData(sortedData);
                 setClientCount(clientCount);
                 setAgencyCount(agencyCount);
@@ -152,7 +152,7 @@ const Dashboard = ({ dataType }) => {
                             {data.map((item, index) => (
                                 <tr key={index}>
                                     {displayFields.map((field) => (
-                                        <td key={field} className="dashboard-td">
+                                        <td key={field} className={`dashboard-td ${field}-td`}>
                                             {Array.isArray(item[field]) ? (
                                                 item[field].map((value, idx) => (
                                                     <div key={idx}>{value}</div>

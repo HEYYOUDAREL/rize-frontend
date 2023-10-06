@@ -17,7 +17,6 @@
     border-bottom-right-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
     color: white;
-    width: 10%;
 }
 
 .dashboard-td {
@@ -25,6 +24,14 @@
     border-color: hsl(0, 0%, 80%);
     padding: 0.5rem !important;
     width: 20%;
+}
+
+.category-td {
+    width: 10%; 
+}
+
+.status-td, .widgets-td {
+    width: 5%;
 }
 
 .dashboard-th {

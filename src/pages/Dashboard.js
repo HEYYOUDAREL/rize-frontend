@@ -38,11 +38,11 @@ const Dashboard = ({ dataType }) => {
             break;
           case 'agency':
             apiUrl = `${process.env.REACT_APP_API_URL}/accounts/agency/retrieve/all`;
-            setDisplayFields(['client', 'agency', 'locations', 'category', 'status']);
+            setDisplayFields(['client', 'agency', 'locations', 'category', 'status', 'widgets']);
             break;
           case 'location':
             apiUrl = `${process.env.REACT_APP_API_URL}/accounts/location/retrieve/all`;
-            setDisplayFields(['client', 'agency', 'location', 'category', 'status']);
+            setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets']);
             break;
           case 'trial': // New case for 'trial' status
             // Construct API endpoints for all three data types
@@ -65,7 +65,7 @@ const Dashboard = ({ dataType }) => {
             ];
   
             // Set display fields and filtered data
-            setDisplayFields(['client', 'agency', 'location', 'category', 'status']);
+            setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets']);
             setData(filteredData);
             return; // Exit the function after setting the data
         }
@@ -103,7 +103,7 @@ const Dashboard = ({ dataType }) => {
           {data.map((item, index) => (
             <tr key={index}>
               {displayFields.map((field) => (
-                <td key={field} className="dashboard-td">
+                <td key={field} className={`dashboard-td ${field}-td`}>
                   {Array.isArray(item[field])
                     ? item[field].map((value, idx) => (
                         <div key={idx}>{value}</div>
