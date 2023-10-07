@@ -39,6 +39,7 @@ export const AddLocation = ({ formState, defaultValue, setFormState, closeModal 
             location: locationName,
             category: formState.category,
             status: formState.status,
+            widgets: formState.widgets,
           }),
         });
   

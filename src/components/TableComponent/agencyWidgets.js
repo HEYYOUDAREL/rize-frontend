@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { agencyID } from "../utils/agencyID";
 
-export const AgencyCategory = ({ formState }) => {
-	const [agencyCategory, setAgencyCategory] = useState(null);
+export const AgencyWidgets = ({ formState }) => {
+	const [agencyWidgets, setAgencyWidgets] = useState(null);
 	const [error, setError] = useState(null);
 	
 	useEffect(() => {
-		const getCategory = async () => {
+		const getWidgets = async () => {
 			
 			if (!formState.selectedAgency) {
 				return;
@@ -32,8 +32,8 @@ export const AgencyCategory = ({ formState }) => {
 					
 					const data = await response.json();
 					
-					// Set agencyCategory with the category string
-					setAgencyCategory(data.category);
+					// Set agencyWidgets with the wdigets string
+					setAgencyWidgets(data.widgets);
 					
 				} catch (error) {
 					setError("Error fetching data. Please try again later.");
@@ -41,7 +41,7 @@ export const AgencyCategory = ({ formState }) => {
 				}
 			};
 			
-			getCategory();
+			getWidgets();
 	}, [formState.selectedAgency]);
 	
 	return (
@@ -49,7 +49,7 @@ export const AgencyCategory = ({ formState }) => {
 			{error ? (
 				<p>Error: {error}</p>
 				) : (
-				<p>{agencyCategory}</p>
+				<p>{agencyWidgets}</p>
 			)}
 		</div>
 	);

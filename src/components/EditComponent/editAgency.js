@@ -1,10 +1,11 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { clientID } from "../utils/clientID";
+import { agencyID } from "../utils/agencyID";
 
-export const AddAgency = ({ formState, defaultValue, setFormState, closeModal }) => {
+export const EditAgency = ({ formState, closeEditModal }) => {
 	
-	const handleAddAgency = async () => {
+	const handleEditAgency = async () => {
 	
 	console.log("Selected Client:", formState.selectedClient); // Add this line for debugging
 
@@ -26,9 +27,29 @@ export const AddAgency = ({ formState, defaultValue, setFormState, closeModal })
 			
 			const agencyName = formState.selectedAgency;
 			
-			// Now you can proceed to add the agency with the getClientID and getAgencyName
-			const agencyResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/agency/add`, {
-				method: "POST",
+			if (!agencyName) {
+                Swal.fire({
+                    title: "Error!",
+                    icon: "error",
+                    text: "Agency is required.",
+                });
+                return;
+            }
+
+            const getAgencyID = await agencyID(agencyName);
+
+            if (!getAgencyID) {
+                Swal.fire({
+                    title: "Error!",
+                    icon: "error",
+                    text: `Agency '${agencyName}' not found.`,
+                });
+                return;
+            }
+			
+			// Now you can proceed to edit the agency with the getClientID and getAgencyName
+			const agencyResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/agency/update/${getAgencyID}`, {
+				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -37,7 +58,7 @@ export const AddAgency = ({ formState, defaultValue, setFormState, closeModal })
 					agency: agencyName,
 					category: formState.category,
 					status: formState.status,
-					widgets: formState.widgets,
+                    widgets: formState.widgets,
 				}),
 			});
 			
@@ -48,15 +69,7 @@ export const AddAgency = ({ formState, defaultValue, setFormState, closeModal })
 			const agencyData = await agencyResponse.json();
 			console.log(agencyData);
 			
-			if (agencyData.message && agencyData.message === 'Agency already exists.') {
-				// Display the error message from the backend.
-				Swal.fire({
-					title: "Error!",
-					icon: "error",
-					text: agencyData.message,
-				});
-				return;
-			} else {
+			if (agencyResponse.ok) {
 				Swal.fire({
 					title: "Agency successfully added",
 					icon: "success",
@@ -76,12 +89,12 @@ export const AddAgency = ({ formState, defaultValue, setFormState, closeModal })
 		}
 		
 		// Close the modal
-		closeModal();
+		closeEditModal();
 	};
 	
 	return (
-		<button type="button" className="btn" onClick={handleAddAgency}>
-		Add Agency
+		<button type="button" className="btn" onClick={handleEditAgency}>
+		Edit Agency
 		</button>
 	);
 };

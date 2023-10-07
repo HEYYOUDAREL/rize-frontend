@@ -15,6 +15,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
         location: "",
         category: "Reviewtrackers",
         status: "Active",
+        widgets: "Active",
     }
     );
     
@@ -54,7 +55,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
     };
     
     return (
-        <div className="modal-container" onClick={(e) => { /* ... */ }}>
+        <div className="modal-container">
             <div className="modal">
                 <h1>Add Account</h1>
                 <form>
@@ -129,8 +130,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
                             closeModal();
                             window.location.reload(true);
                             }}
-                            >
-                            Close
+                        >Close
                         </button>
                     </div>
                 </form>

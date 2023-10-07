@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import "./styles/Table.css";
-import { BsPersonAdd } from "react-icons/bs";
+import { BsPersonAdd,  } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
 import { Modal } from "./Modal";
+import { EditModal } from "./EditModal";
 import { ClientDropdown } from "./TableComponent/clientDropdown";
 import { AgencyDropdown } from "./TableComponent/agencyDropdown";
 import { LocationDropdown } from "./TableComponent/locationDropdown";
 import { AgencyCategory } from "./TableComponent/agencyCategory";
 import { AgencyStatus } from "./TableComponent/agencyStatus";
+import { AgencyWidgets } from "./TableComponent/agencyWidgets";
 import { LocationCategory } from "./TableComponent/locationCategory";
 import { LocationStatus } from "./TableComponent/locationStatus";
+import { LocationWidgets } from "./TableComponent/locationWidgets";
 import { DeleteClient } from "./TableComponent/deleteClient";
 import { DeleteAgency } from "./TableComponent/deleteAgency";
 import { DeleteLocation } from "./TableComponent/deleteLocation";
@@ -22,10 +26,12 @@ export const Table = ({ defaultValue }) => {
             selectedLocation: "",
             category: "",
             status: "",
+            widgets: "",
         }
     );
     
     const [modalOpen, setModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     
     const handleClientSelection = (selectedClientId) => {
@@ -46,7 +52,7 @@ export const Table = ({ defaultValue }) => {
         });
     };
         
-    const statusText = (status) => status.charAt(0).toUpperCase() + status.slice(1);
+    // const statusText = (status) => status.charAt(0).toUpperCase() + status.slice(1);
     
     return (
         <div className="table-wrapper">
@@ -118,9 +124,24 @@ export const Table = ({ defaultValue }) => {
                         <td>
                             <div className="dropdown-container centered-cell">
                                 {!formState.selectedLocation || formState.selectedLocation === "" ? (
-                                    <AgencyStatus formState={formState} />
+                                <AgencyStatus formState={formState} />
                                 ) : (
                                 <LocationStatus formState={formState} />
+                                )}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td className="th-component">Widgets</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="dropdown-container centered-cell">
+                                {!formState.selectedLocation || formState.selectedLocation === "" ? (
+                                <AgencyWidgets formState={formState} />
+                                ) : (
+                                <LocationWidgets formState={formState} />
                                 )}
                             </div>
                         </td>
@@ -134,6 +155,14 @@ export const Table = ({ defaultValue }) => {
                                 {modalOpen && (
                                     <Modal
                                         closeModal={() => setModalOpen(false)}
+                                    />
+                                )}
+                                <button onClick={() => setEditModalOpen(true)} className="btn-table edit" title="Edit">
+                                <FiEdit size={30} />
+                                </button>
+                                {editModalOpen && (
+                                    <EditModal
+                                        closeEditModal={() => setEditModalOpen(false)}
                                     />
                                 )}
                                 <button
