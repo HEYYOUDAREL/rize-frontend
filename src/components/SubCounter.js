@@ -8,6 +8,7 @@ export const SubCounter = (formState) => {
     const [agencyCount, setAgencyCount] = useState(0);
     const [locationCount, setLocationCount] = useState(0);
     const [trialCount, setTrialCount] = useState(0);
+    const [widgetCount, setWidgetCount] = useState(0);
     
     useEffect(() => {
 
@@ -37,6 +38,10 @@ export const SubCounter = (formState) => {
                 const trialAccounts = combinedData.filter(item => item.status === 'Trial');
                 setTrialCount(trialAccounts.length);
 
+                // Filter combined data for accounts with widgets
+                const widgetAccounts = combinedData.filter(item => item.widgets === 'Active');
+                setWidgetCount(widgetAccounts.length);
+
             } catch (error) {
                 console.error('Error fetching data:', error);
                 // Handle errors here, display a user-friendly message or log the error for debugging
@@ -55,6 +60,7 @@ export const SubCounter = (formState) => {
                     <td><Link to="/dashboard/agency" className='count'>{agencyCount}</Link></td>
                     <td><Link to="/dashboard/location" className='count'>{locationCount}</Link></td>
                     <td><Link to="/dashboard/trial" className='count'>{trialCount}</Link></td>
+                    <td><Link to="/dashboard/widgets" className='count'>{widgetCount}</Link></td>
                 </tr>
                 <tr>
                     <td className='countname'>
@@ -68,6 +74,9 @@ export const SubCounter = (formState) => {
                     </td>
                     <td className='countname'>
                         <span className='bordered-span'>Trial Accounts</span>
+                    </td>
+                    <td className='countname'>
+                        <span className='bordered-span'>Widgets</span>
                     </td>
                 </tr>
                 </tbody>

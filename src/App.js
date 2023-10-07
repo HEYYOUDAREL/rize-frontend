@@ -17,6 +17,7 @@ function App() {
           <Route path="/dashboard/agency" element={<Dashboard dataType="agency"/>} />
           <Route path="/dashboard/location" element={<Dashboard dataType="location"/>} />
           <Route path="/dashboard/trial" element={<Dashboard dataType="trial"/>} />
+          <Route path="/dashboard/widgets" element={<Dashboard dataType="widgets"/>} />
           <Route path="/dashboard/rize" element={<SubDashboard dataType="rize"/>} />
           <Route path="/dashboard/reviewtrackers" element={<SubDashboard dataType="reviewtrackers"/>} />
           <Route path="/dashboard/reviewshake" element={<SubDashboard dataType="reviewshake"/>} />
