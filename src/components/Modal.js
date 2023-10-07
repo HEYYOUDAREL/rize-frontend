@@ -60,19 +60,22 @@ export const Modal = ({ closeModal, defaultValue }) => {
                 <h1>Add Account</h1>
                 <form>
                     <div className="form-group">
+                        <p className="modal-header">Unique Client</p>
                         <ClientDropdown onClientSelect={handleClientSelection} />
                     </div>
                 
                     <div className="form-group">
+                        <p className="modal-header">Agency</p>
                         <AgencyDropdown
                             formState={formState}
                             onAgencySelect={handleAgencySelection}
                             setIsAddingAgency={setIsAddingAgency}
                         />
                     </div>
-                
+
                     {!isAddingAgency && (
                     <div className="form-group">
+                        <p className="modal-header">Location</p>
                         <LocationDropdown
                             formState={formState}
                             onLocationSelect={handleLocationSelection}
@@ -82,6 +85,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
                     )}
                 
                     <div className="form-group">
+                        <p className="modal-header">Category</p>
                         <Select
                             name="category"
                             onChange={handleCategorySelection}
@@ -97,6 +101,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
                     </div>
                 
                     <div className="form-group status">
+                        <p className="modal-header">Status</p>
                         <Select
                             name="status"
                             onChange={handleStatusSelection}
@@ -104,6 +109,19 @@ export const Modal = ({ closeModal, defaultValue }) => {
                             options={[
                                 { value: 'Active', label: 'Active' },
                                 { value: 'Trial', label: 'Trial' },
+                            ]}
+                        />
+                    </div>
+
+                    <div className="form-group widgets">
+                        <p className="modal-header">Widgets</p>
+                        <Select
+                            name="widgets"
+                            onChange={handleStatusSelection}
+                            value={{ value: formState.widgets, label: formState.widgets }}
+                            options={[
+                                { value: 'Active', label: 'Active' },
+                                { value: 'None', label: 'None' },
                             ]}
                         />
                     </div>

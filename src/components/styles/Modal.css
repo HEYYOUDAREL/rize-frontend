@@ -45,8 +45,8 @@
   .form-group {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   
   .status {
@@ -75,4 +75,11 @@
     color: #df4759;
     padding: 0.5rem;
     border-radius: 0.3rem;
+  }
+
+  .modal-header {
+    background-color: #1D3C73;
+    border-radius: 0 !important;
+    padding: 0.5rem;
+    color: white;
   }

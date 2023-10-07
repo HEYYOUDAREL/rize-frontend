@@ -61,7 +61,7 @@ export const Table = ({ defaultValue }) => {
                     <tr>
                         <td className="th-component">Unique Client</td>
                     </tr>
-                    <tr >
+                    <tr>
                         <td>
                             <div className="dropdown-container">
                             <ClientDropdown

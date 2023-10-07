@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import "./styles/Modal.css";
-import { ClientDropdown } from "./ModalComponent/clientDropdown";
-import { AgencyDropdown } from "./ModalComponent/agencyDropdown";
+import { ClientDropdown } from "./EditComponent/clientDropdown";
+import { AgencyDropdown } from "./EditComponent/agencyDropdown";
 import { LocationDropdown } from "./ModalComponent/locationDropdown";
 import { EditAgency } from "./EditComponent/editAgency";
 import { agencyID } from "./utils/agencyID";
@@ -107,28 +107,30 @@ export const EditModal = ({ closeEditModal }) => {
                 <h1>Edit Account</h1>
                 <form>
                     <div className="form-group">
+                        <p className="modal-header">Unique Client</p>
                         <ClientDropdown
                             formState={formState}
                             onClientSelect={handleClientSelection} />
                     </div>
 
                     <div className="form-group">
+                        <p className="modal-header">Agency</p>
                         <AgencyDropdown
                             formState={formState}
                             onAgencySelect={handleAgencySelection}
                         />
                     </div>
 
-                    {!formState.selectedAgency && (
-                        <div className="form-group">
-                            <LocationDropdown
-                                formState={formState}
-                                onLocationSelect={handleLocationSelection}
-                            />
-                        </div>
-                    )}
+                    <div className="form-group">
+                        <p className="modal-header">Location</p>
+                        <LocationDropdown
+                            formState={formState}
+                            onLocationSelect={handleLocationSelection}
+                        />
+                    </div>
 
                     <div className="form-group">
+                        <p className="modal-header">Category</p>
                         <Select
                             name="category"
                             value={{ value: formState.category ?? '', label: formState.category ?? '' }}
@@ -140,11 +142,11 @@ export const EditModal = ({ closeEditModal }) => {
                                 { value: 'Grade.us', label: 'Grade.us' },
                                 { value: 'White Label', label: 'White Label' }
                             ]}
-                            placeholder="Select a category"
                         />
                     </div>
 
                     <div className="form-group status">
+                        <p className="modal-header">Status</p>
                         <Select
                             name="status"
                             value={{ value: formState.status ?? '', label: formState.status ?? '' }}
@@ -153,11 +155,11 @@ export const EditModal = ({ closeEditModal }) => {
                                 { value: 'Active', label: 'Active' },
                                 { value: 'Trial', label: 'Trial' },
                             ]}
-                            placeholder="Select a status"
                         />
                     </div>
 
                     <div className="form-group widgets">
+                        <p className="modal-header">Widgets</p>
                         <Select
                             name="widgets"
                             value={{ value: formState.widgets ?? '', label: formState.widgets ?? '' }}
@@ -166,7 +168,6 @@ export const EditModal = ({ closeEditModal }) => {
                                 { value: 'Active', label: 'Active' },
                                 { value: 'None', label: 'None' },
                             ]}
-                            placeholder="Select an option"
                         />
                     </div>
 
