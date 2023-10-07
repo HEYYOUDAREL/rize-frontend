@@ -5,6 +5,7 @@ import { ClientDropdown } from "./EditComponent/clientDropdown";
 import { AgencyDropdown } from "./EditComponent/agencyDropdown";
 import { LocationDropdown } from "./ModalComponent/locationDropdown";
 import { EditAgency } from "./EditComponent/editAgency";
+import { EditLocation } from "./EditComponent/editLocation";
 import { agencyID } from "./utils/agencyID";
 
 export const EditModal = ({ closeEditModal }) => {
@@ -175,6 +176,10 @@ export const EditModal = ({ closeEditModal }) => {
 
                     <div className="buttons">
                         <EditAgency
+                            formState={formState}
+                            closeEditModal={closeEditModal}
+                        />
+                        <EditLocation
                             formState={formState}
                             closeEditModal={closeEditModal}
                         />
