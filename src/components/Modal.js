@@ -16,6 +16,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
         category: "Reviewtrackers",
         status: "Active",
         widgets: "Active",
+        notes: "",
     }
     );
     
@@ -131,6 +132,10 @@ export const Modal = ({ closeModal, defaultValue }) => {
                                 { value: 'None', label: 'None' },
                             ]}
                         />
+                    </div>
+
+                    <div className="form-group notes">
+                        <textarea placeholder="Add notes..."></textarea>
                     </div>
                 
                     {errors && <div className="error">{`Required fields: ${errors}`}</div>}

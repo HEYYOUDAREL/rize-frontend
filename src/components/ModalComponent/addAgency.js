@@ -36,6 +36,7 @@ export const AddAgency = ({ formState, defaultValue, setFormState, closeModal })
 					category: formState.category,
 					status: formState.status,
 					widgets: formState.widgets,
+					notes: formState.notes,
 				}),
 			});
 			

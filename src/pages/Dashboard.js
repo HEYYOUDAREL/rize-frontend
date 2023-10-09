@@ -80,7 +80,7 @@ const Dashboard = ({ dataType }) => {
                   .map(item => item.location)
               ).size;              
             
-              setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets']);
+              setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets', 'notes']);
               setData(sortData(filteredWidgetData));
               
               setClientCount(clientCount);

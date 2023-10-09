@@ -93,6 +93,7 @@ export const EditModal = ({ closeEditModal }) => {
                     category: agencyData.category,
                     status: agencyData.status,
                     widgets: agencyData.widgets,
+                    notes: agencyData.notes,
                 }));
             } catch (error) {
                 console.error("Error fetching agency data:", error);
@@ -171,6 +172,11 @@ export const EditModal = ({ closeEditModal }) => {
                             ]}
                         />
                     </div>
+
+                    <textarea className="form-group sub-notes"
+                        value={formState.notes ?? ''}
+                        onChange={(e) => setFormState({ ...formState, notes: e.target.value })}
+                    ></textarea>
 
                     {errors && <div className="error">{`Required fields: ${errors}`}</div>}
 

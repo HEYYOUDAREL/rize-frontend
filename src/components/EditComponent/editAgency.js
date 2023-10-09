@@ -41,6 +41,7 @@ export const EditAgency = ({ formState, closeEditModal }) => {
 					category: formState.category,
 					status: formState.status,
                     widgets: formState.widgets,
+					notes: formState.notes,
 				}),
 			});
 			
