@@ -53,6 +53,13 @@ export const Modal = ({ closeModal, defaultValue }) => {
             status: selectedOption.value,
         });
     };
+
+    const handleWidgetsSelection = (selectedOption) => {
+        setFormState({
+            ...formState,
+            widgets: selectedOption.value,
+        });
+    };
     
     return (
         <div className="modal-container">
@@ -117,7 +124,7 @@ export const Modal = ({ closeModal, defaultValue }) => {
                         <p className="modal-header">Widgets</p>
                         <Select
                             name="widgets"
-                            onChange={handleStatusSelection}
+                            onChange={handleWidgetsSelection}
                             value={{ value: formState.widgets, label: formState.widgets }}
                             options={[
                                 { value: 'Active', label: 'Active' },

@@ -27,6 +27,7 @@ export const AddLocation = ({ formState, defaultValue, setFormState, closeModal 
         const getAgencyID = await agencyID(agencyName);
         console.log("Client ID:", getClientID);
         console.log("Agency ID:", getAgencyID);
+        console.log("Widgets:", formState.widgets);
   
         const locationResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/location/add`, {
           method: "POST",

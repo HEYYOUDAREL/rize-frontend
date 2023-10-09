@@ -5,6 +5,8 @@ import './Dashboard.css';
 const Dashboard = ({ dataType }) => {
   const [data, setData] = useState([]);
   const [displayFields, setDisplayFields] = useState([]);
+  const [activeWidgetsCount, setActiveWidgets] = useState(0);
+  const [noWidgetsCount, setNoWidgets] = useState(0);
 
   const sortData = (data) => {
     return data.sort((a, b) => {
@@ -54,22 +56,29 @@ const Dashboard = ({ dataType }) => {
             setData(sortData(filteredData));
             break;
 
-          case 'widgets':
-            const [clientWidgetData, agencyWidgetData, locationWidgetData] = await Promise.all([
-              fetch(`${process.env.REACT_APP_API_URL}/accounts/client/retrieve/all`).then(response => response.json()),
-              fetch(`${process.env.REACT_APP_API_URL}/accounts/agency/retrieve/all`).then(response => response.json()),
-              fetch(`${process.env.REACT_APP_API_URL}/accounts/location/retrieve/all`).then(response => response.json())
-            ]);
-
-            const filteredWidgetData = [
-              ...clientWidgetData.filter(item => item.widgets === 'Active'),
-              ...agencyWidgetData.filter(item => item.widgets === 'Active'),
-              ...locationWidgetData.filter(item => item.widgets === 'Active')
-            ];
-
-            setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets']);
-            setData(sortData(filteredWidgetData));
-            break;
+            case 'widgets':
+              const [clientWidgetData, agencyWidgetData, locationWidgetData] = await Promise.all([
+                fetch(`${process.env.REACT_APP_API_URL}/accounts/client/retrieve/all`).then(response => response.json()),
+                fetch(`${process.env.REACT_APP_API_URL}/accounts/agency/retrieve/all`).then(response => response.json()),
+                fetch(`${process.env.REACT_APP_API_URL}/accounts/location/retrieve/all`).then(response => response.json())
+              ]);
+            
+              const filteredWidgetData = [
+                ...clientWidgetData.filter(item => item.widgets === 'Active'),
+                ...agencyWidgetData.filter(item => item.widgets === 'Active'),
+                ...locationWidgetData.filter(item => item.widgets === 'Active')
+              ];
+            
+              // Count active widgets and no widgets
+              const activeWidgetsCount = filteredWidgetData.filter(item => item.widgets === 'Active').length;
+              const noWidgetsCount = filteredWidgetData.filter(item => item.widgets === 'None').length;
+            
+              setActiveWidgets(activeWidgetsCount);
+              setNoWidgets(noWidgetsCount);
+            
+              setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets']);
+              setData(sortData(filteredWidgetData));
+              break;            
         }
 
         if (apiUrl) {
@@ -90,6 +99,20 @@ const Dashboard = ({ dataType }) => {
   return (
     <div>
       <AppNavbar />
+      <div className='subdashboard-counter'>
+        <table className='table-wrapper'>
+          <tbody>
+            <tr>
+              <td className='count'>{activeWidgetsCount}</td>
+              <td className='count'>{noWidgetsCount}</td>
+            </tr>
+            <tr>
+              <td><span className='bordered-span'>Active Widgets</span></td>
+              <td><span className='bordered-span'>No Widgets</span></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
       <div className='dashboard-container'>
         {data.length === 0 ? (
             <p>No accounts found.</p>

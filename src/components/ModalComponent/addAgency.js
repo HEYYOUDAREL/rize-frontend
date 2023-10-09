@@ -5,8 +5,6 @@ import { clientID } from "../utils/clientID";
 export const AddAgency = ({ formState, defaultValue, setFormState, closeModal }) => {
 	
 	const handleAddAgency = async () => {
-	
-	console.log("Selected Client:", formState.selectedClient); // Add this line for debugging
 
 		try {
 

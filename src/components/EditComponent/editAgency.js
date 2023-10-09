@@ -1,29 +1,12 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { clientID } from "../utils/clientID";
 import { agencyID } from "../utils/agencyID";
 
 export const EditAgency = ({ formState, closeEditModal }) => {
 	
 	const handleEditAgency = async () => {
-	
-	console.log("Selected Client:", formState.selectedClient); // Add this line for debugging
 
 		try {
-
-			const clientName = formState.selectedClient;
-			
-			if (!clientName) {
-				// Display an alert if clientName is missing
-				Swal.fire({
-					title: "Error!",
-					icon: "error",
-					text: "Client name is required.",
-				});
-				return; // Exit the function to prevent further execution
-			}
-			
-			const getClientID = await clientID(clientName);
 			
 			const agencyName = formState.selectedAgency;
 			
@@ -47,14 +30,13 @@ export const EditAgency = ({ formState, closeEditModal }) => {
                 return;
             }
 			
-			// Now you can proceed to edit the agency with the getClientID and getAgencyName
+			// Now you can proceed to edit the agency with the getAgencyName
 			const agencyResponse = await fetch(`${process.env.REACT_APP_API_URL}/accounts/agency/update/${getAgencyID}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					client: getClientID,
 					agency: agencyName,
 					category: formState.category,
 					status: formState.status,

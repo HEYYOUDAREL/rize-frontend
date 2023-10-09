@@ -46,6 +46,9 @@ export const EditLocation = ({ formState, closeEditModal }) => {
 			if (!locationResponse.ok) {
 				throw new Error(`Network response was not ok (status ${locationResponse.status})`);
 			}
+
+			const locationData = await locationResponse.json();
+			console.log(locationData);
 			
 			if (locationResponse.ok) {
 				Swal.fire({
