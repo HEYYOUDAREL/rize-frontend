@@ -5,8 +5,9 @@ import './Dashboard.css';
 const Dashboard = ({ dataType }) => {
   const [data, setData] = useState([]);
   const [displayFields, setDisplayFields] = useState([]);
-  const [activeWidgetsCount, setActiveWidgets] = useState(0);
-  const [noWidgetsCount, setNoWidgets] = useState(0);
+  const [clientCount, setClientCount] = useState(0);
+  const [agencyCount, setAgencyCount] = useState(0);
+  const [locationCount, setLocationCount] = useState(0);
 
   const sortData = (data) => {
     return data.sort((a, b) => {
@@ -68,16 +69,23 @@ const Dashboard = ({ dataType }) => {
                 ...agencyWidgetData.filter(item => item.widgets === 'Active'),
                 ...locationWidgetData.filter(item => item.widgets === 'Active')
               ];
-            
-              // Count active widgets and no widgets
-              const activeWidgetsCount = filteredWidgetData.filter(item => item.widgets === 'Active').length;
-              const noWidgetsCount = filteredWidgetData.filter(item => item.widgets === 'None').length;
-            
-              setActiveWidgets(activeWidgetsCount);
-              setNoWidgets(noWidgetsCount);
+
+              // Count clients, agencies, and locations
+              const clientCount = new Set(filteredWidgetData.map(item => item.client)).size;
+              const agencyCount = new Set(filteredWidgetData.map(item => item.agency)).size;
+              // Count locations based on the 'locations' field
+              const locationCount = new Set(
+                filteredWidgetData
+                  .filter(item => item.location !== null && item.location !== undefined)
+                  .map(item => item.location)
+              ).size;              
             
               setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets']);
               setData(sortData(filteredWidgetData));
+              
+              setClientCount(clientCount);
+              setAgencyCount(agencyCount);
+              setLocationCount(locationCount);
               break;            
         }
 
@@ -103,12 +111,14 @@ const Dashboard = ({ dataType }) => {
         <table className='table-wrapper'>
           <tbody>
             <tr>
-              <td className='count'>{activeWidgetsCount}</td>
-              <td className='count'>{noWidgetsCount}</td>
+              <td className='count'>{clientCount}</td>
+              <td className='count'>{agencyCount}</td>
+              <td className='count'>{locationCount}</td>
             </tr>
             <tr>
-              <td><span className='bordered-span'>Active Widgets</span></td>
-              <td><span className='bordered-span'>No Widgets</span></td>
+              <td><span className='bordered-span'>Unique Clients</span></td>
+              <td><span className='bordered-span'>Agencies</span></td>
+              <td><span className='bordered-span'>Locations</span></td>
           </tr>
           </tbody>
         </table>
