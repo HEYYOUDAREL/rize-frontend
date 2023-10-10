@@ -58,35 +58,37 @@ const Dashboard = ({ dataType }) => {
             break;
 
             case 'widgets':
-              const [clientWidgetData, agencyWidgetData, locationWidgetData] = await Promise.all([
-                fetch(`${process.env.REACT_APP_API_URL}/accounts/client/retrieve/all`).then(response => response.json()),
+              const [agencyWidgetData, locationWidgetData] = await Promise.all([
                 fetch(`${process.env.REACT_APP_API_URL}/accounts/agency/retrieve/all`).then(response => response.json()),
                 fetch(`${process.env.REACT_APP_API_URL}/accounts/location/retrieve/all`).then(response => response.json())
               ]);
-            
+
               const filteredWidgetData = [
-                ...clientWidgetData.filter(item => item.widgets === 'Active'),
-                ...agencyWidgetData.filter(item => item.widgets === 'Active'),
-                ...locationWidgetData.filter(item => item.widgets === 'Active')
+                ...agencyWidgetData,
+                ...locationWidgetData
               ];
 
-              // Count clients, agencies, and locations
-              const clientCount = new Set(filteredWidgetData.map(item => item.client)).size;
-              const agencyCount = new Set(filteredWidgetData.map(item => item.agency)).size;
-              // Count locations based on the 'locations' field
+              // Filter only "Active" widgets for counting
+              const activeWidgets = filteredWidgetData.filter(item => item.widgets === 'Active');
+
+              // Count clients, agencies, and locations based on "Active" widgets
+              const clientCount = new Set(activeWidgets.map(item => item.client)).size;
+              const agencyCount = new Set(activeWidgets.map(item => item.agency)).size;
+              // Count locations based on the 'locations' field for "Active" widgets
               const locationCount = new Set(
-                filteredWidgetData
+                activeWidgets
                   .filter(item => item.location !== null && item.location !== undefined)
                   .map(item => item.location)
-              ).size;              
-            
+              ).size;
+
               setDisplayFields(['client', 'agency', 'location', 'category', 'status', 'widgets', 'notes']);
               setData(sortData(filteredWidgetData));
-              
+
               setClientCount(clientCount);
               setAgencyCount(agencyCount);
               setLocationCount(locationCount);
-              break;            
+
+              break;
         }
 
         if (apiUrl) {
